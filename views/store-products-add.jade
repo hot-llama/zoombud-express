@@ -2,7 +2,7 @@ extends layout_admin
 
 block content
   h1= title
-  a(href="/stores/products/" + store_id) << Back to Store Products
+  a(href="/admin/stores/products/" + store_id) << Back to Store Products
   div(id="output")
   input(type='hidden' name='store_id' id='store_id' value='#{store_id}')
   

@@ -24,7 +24,7 @@ router.get('/stores/', function(req, res, next) {
 router.get('/stores/add', function(req, res, next) {
     res.render('stores-add', { title: 'Add Zoombud Store' });
 });
-/* POST to Add Store Service */
+/* POST to Add Store */
 router.post('/stores/add', function(req, res) {
     query = db.query('INSERT INTO stores SET ?', req.body, 
         function (err, result) {
@@ -47,7 +47,7 @@ router.get('/stores/edit/:store_id', function(req, res, next) {
         }
     );
 });
-/* POST to Edit Store Service */
+/* POST to Edit Store */
 router.post('/stores/edit/:store_id', function(req, res) {
     var store_id = req.params.store_id;
     console.log('edit store id: ' + store_id);
@@ -93,7 +93,7 @@ router.get('/stores/products/add/:store_id', function(req, res, next) {
         }
     );
 });
-/* POST to Add Store Product Service */
+/* POST to Add Store Product */
 router.post('/stores/products/add', function(req, res) {
     query = db.query('INSERT INTO products SET ?', req.body, 
         function (err, result) {
@@ -126,7 +126,7 @@ router.get('/stores/products/edit/:product_id', function(req, res, next) {
         }
     );
 });
-/* POST to Edit Store Product Service */
+/* POST to Edit Store Product */
 router.post('/stores/products/edit/:product_id', function(req, res) {
     var product_id = req.params.product_id;
     query = db.query('UPDATE products SET ? WHERE product_id = ' + product_id, req.body, 
@@ -147,6 +147,55 @@ router.get('/strains/lookup/:strain', function(req, res, next) {
             strains = rows;
             //console.log(strains);
             res.send(strains);
+        }
+    );
+});
+
+/* ****************** USER routes ******************* */
+router.get('/users/', function(req, res, next) {
+    var users;
+    db.query('SELECT * FROM users ORDER BY user_id ASC', 
+        function (err, rows, result) {
+            if (err) throw err;
+            users = rows;
+            res.render('users', { title: 'Zoombud Users', users: users });
+        }
+    );
+});
+router.get('/users/add', function(req, res, next) {
+    res.render('users-add', { title: 'Add Zoombud User' });
+});
+/* POST to Add User */
+router.post('/users/add', function(req, res) {
+    query = db.query('INSERT INTO users SET ?', req.body, 
+        function (err, result) {
+            if (err) throw err;
+            console.log(query.sql);
+            res.send('User added to database. <a href="/users/edit/' + result.insertId + '">Click here to edit</a>');
+        }
+    );
+});
+router.get('/users/edit/:user_id', function(req, res, next) {
+    var user_id = req.params.user_id;
+    var user;
+    db.query('SELECT * FROM users WHERE user_id = ?', user_id, 
+        function (err, rows, result) {
+            if (err) throw err;
+            user = rows[0];
+            console.log(user.email);
+            res.render('user-edit', { title: 'Zoombud User: ' + user.email });
+        }
+    );
+});
+/* POST to Edit User */
+router.post('/users/edit/:user_id', function(req, res) {
+    var user_id = req.params.user_id;
+    console.log('edit user id: ' + user_id);
+    query = db.query('UPDATE users SET ? WHERE user_id = ' + user_id, req.body, 
+        function (err, result) {
+            if (err) throw err;
+            console.log(query.sql);
+            res.send('User info updated.');
         }
     );
 });

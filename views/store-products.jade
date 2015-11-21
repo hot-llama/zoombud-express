@@ -2,7 +2,7 @@ extends layout_admin
 
 block content
     h1= title
-    a(href="/stores/products/add/" + store_id) Add Product
+    a(href="/admin/stores/products/add/" + store_id) Add Product
     p
   
     table
@@ -15,7 +15,7 @@ block content
             each product in products
                 tr
                     td
-                        a(href="/stores/products/edit/" + product.product_id) #{product.product_name}
+                        a(href="/admin/stores/products/edit/" + product.product_id) #{product.product_name}
                     td= product.price
         else
             tr

@@ -1,0 +1,26 @@
+extends layout_admin
+
+block content
+    h1= title
+    a(href="/admin/users/add") Add User
+    p
+  
+    table
+        thead
+            tr
+                th ID
+                th Email
+                th Admin
+        tbody
+        if (typeof(users) !== 'undefined' && users.length > 0)
+            each user in users
+                tr
+                    td
+                        a(href="/admin/user/edit/" + user.user_id) #{user.user_id}
+                    td
+                        a(href="/admin/user/edit/" + user.user_id) #{user.email}
+                    td= user.is_admin
+        else
+            tr
+                td(colspan="3")
+                    p There are no users yet..

@@ -12,7 +12,7 @@ $(document).ready(function () {
             zip: $('#zip').val()
         };
         $.ajax({
-            url: "/stores/add",
+            url: "/admin/stores/add",
             type: "POST",
             contentType: "application/json",
             processData: false,
@@ -36,7 +36,7 @@ $(document).ready(function () {
             zip: $('#zip').val()
         };
         $.ajax({
-            url: "/stores/edit/" + $('#store_id').val(),
+            url: "/admin/stores/edit/" + $('#store_id').val(),
             type: "POST",
             contentType: "application/json",
             processData: false,
@@ -56,7 +56,7 @@ $(document).ready(function () {
             sale_price: $('#sale_price').val()
         };
         $.ajax({
-            url: "/stores/products/add",
+            url: "/admin/stores/products/add",
             type: "POST",
             contentType: "application/json",
             processData: false,
@@ -76,7 +76,7 @@ $(document).ready(function () {
             sale_price: $('#sale_price').val()
         };
         $.ajax({
-            url: "/stores/products/edit/" + $('#product_id').val(),
+            url: "/admin/stores/products/edit/" + $('#product_id').val(),
             type: "POST",
             contentType: "application/json",
             processData: false,
@@ -93,7 +93,7 @@ $(document).ready(function () {
       identify: function(obj) { return obj.team; },
       /*prefetch: '/all-strains.json',*/
       remote: {
-        url: '/strains/lookup/%QUERY',
+        url: '/admin/strains/lookup/%QUERY',
         wildcard: '%QUERY'
       }
     });

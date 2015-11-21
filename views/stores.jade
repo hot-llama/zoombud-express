@@ -2,7 +2,7 @@ extends layout_admin
 
 block content
     h1= title
-    a(href="/stores/add") Add Store
+    a(href="/admin/stores/add") Add Store
     p
   
     table
@@ -16,11 +16,11 @@ block content
                 th Phone
                 th Products
         tbody
-        if (typeof(allstores) !== 'undefined')
+        if (typeof(allstores) !== 'undefined' && allstores.length > 0)
             each store in allstores
                 tr
                     td
-                        a(href="/stores/edit/" + store.store_id) #{store.name}
+                        a(href="/admin/stores/edit/" + store.store_id) #{store.name}
                     td= store.city
                     td= store.state
                     td= store.contact_name
@@ -29,8 +29,10 @@ block content
                             a(href="mailto:" + store.contact_email) #{store.contact_email}
                     td= store.contact_phone
                     td
-                        a(href="/stores/products/" + store.store_id) #{store.products_count}
+                        a(href="/admin/stores/products/" + store.store_id) #{store.products_count}
                         &nbsp; | &nbsp;
-                        a(href="/stores/products/add/" + store.store_id) (add new)
+                        a(href="/admin/stores/products/add/" + store.store_id) (add new)
         else
-            p There are no stores yet..
+            tr
+                td(colspan="7")
+                    p There are no stores yet..
