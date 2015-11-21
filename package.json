@@ -15,9 +15,5 @@
     "mysql": "~2.9.0",
     "serve-favicon": "~2.3.0",
     "async": "*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://andyschaff@github.com/hot-llama/zoombud-express.git"
   }
 }
