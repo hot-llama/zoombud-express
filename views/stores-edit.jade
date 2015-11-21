@@ -1,0 +1,90 @@
+extends layout
+
+block content
+  h1= title
+  a(href="/stores/") << Back to Stores
+  div(id="output")
+  input(type='hidden' name='store_id' id='store_id' value='#{store.store_id}')
+  
+  div
+    label Store Name
+    input(
+        type='text'
+        name='name'
+        id='name'
+        value='#{store.name}'
+        maxlength='100'
+    )
+  div
+    label Contact Name
+    input(
+        type='text'
+        name='contact_name'
+        id='contact_name'
+        value='#{store.contact_name}'
+        maxlength='100'
+    )
+  div
+    label Contact Email
+    input(
+        type='text'
+        name='contact_email'
+        id='contact_email'
+        value='#{store.contact_email}'
+        maxlength='45'
+    )
+  div
+    label Contact Phone
+    input(
+        type='text'
+        name='contact_phone'
+        id='contact_phone'
+        value='#{store.contact_phone}'
+        maxlength='15'
+    )
+  div
+    label Address
+    input(
+        type='text'
+        name='address1'
+        id='address1'
+        value='#{store.address1}'
+        maxlength='100'
+    )
+  div
+    label Address2
+    input(
+        type='text'
+        name='address2'
+        id='address2'
+        value='#{store.address2}'
+        maxlength='45'
+    )
+  div
+    label City
+    input(
+        type='text'
+        name='city'
+        id='city'
+        value='#{store.city}'
+        maxlength='45'
+    )
+  div
+    label State
+    select(name='state',id='state')
+        option(value="" selected=(store.state == '')) -- Select State --
+        option(value="WA" selected=(store.state == 'WA')) Washington
+        option(value="OR" selected=(store.state == 'OR')) Oregon
+        option(value="CO" selected=(store.state == 'CO')) Colorado
+  div
+    label Zip
+    input(
+        type='text'
+        name='zip'
+        id='zip'
+        value='#{store.zip}'
+        maxlength='10'
+    )
+    
+  div
+    input(type='submit', id='storeEditSubmit' value='Save')

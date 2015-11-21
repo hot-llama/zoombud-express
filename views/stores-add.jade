@@ -1,0 +1,89 @@
+extends layout
+
+block content
+  h1= title
+  a(href="/stores/") << Back to Stores
+  div(id="output")
+  
+  div
+    label Store Name
+    input(
+        type='text'
+        name='name'
+        id='name'
+        value=''
+        maxlength='100'
+    )
+  div
+    label Contact Name
+    input(
+        type='text'
+        name='contact_name'
+        id='contact_name'
+        value=''
+        maxlength='100'
+    )
+  div
+    label Contact Email
+    input(
+        type='text'
+        name='contact_email'
+        id='contact_email'
+        value=''
+        maxlength='45'
+    )
+  div
+    label Contact Phone
+    input(
+        type='text'
+        name='contact_phone'
+        id='contact_phone'
+        value=''
+        maxlength='15'
+    )
+  div
+    label Address
+    input(
+        type='text'
+        name='address1'
+        id='address1'
+        value=''
+        maxlength='100'
+    )
+  div
+    label Address2
+    input(
+        type='text'
+        name='address2'
+        id='address2'
+        value=''
+        maxlength='45'
+    )
+  div
+    label City
+    input(
+        type='text'
+        name='city'
+        id='city'
+        value=''
+        maxlength='45'
+    )
+  div
+    label State
+    select(name='state',id='state')
+        option(value="") -- Select State --
+        option(value="WA") Washington
+        option(value="OR") Oregon
+        option(value="CO") Colorado
+  div
+    label Zip
+    input(
+        type='text'
+        name='zip'
+        id='zip'
+        value=''
+        maxlength='10'
+    )
+    
+  div
+    input(type='submit', id='storeSubmit' value='Save')

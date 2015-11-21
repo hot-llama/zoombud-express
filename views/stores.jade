@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    h1= title
+    a(href="/stores/add") Add Store
+    p
+  
+    table
+        thead
+            tr
+                th Name
+                th City
+                th State
+                th Contact
+                th Email
+                th Phone
+                th Products
+        tbody
+        if (typeof(allstores) !== 'undefined')
+            each store in allstores
+                tr
+                    td
+                        a(href="/stores/edit/" + store.store_id) #{store.name}
+                    td= store.city
+                    td= store.state
+                    td= store.contact_name
+                    td
+                        if (store.contact_email !== '')
+                            a(href="mailto:" + store.contact_email) #{store.contact_email}
+                    td= store.contact_phone
+                    td
+                        a(href="/stores/products/" + store.store_id) #{store.products_count}
+                        &nbsp; | &nbsp;
+                        a(href="/stores/products/add/" + store.store_id) (add new)
+        else
+            p There are no stores yet..

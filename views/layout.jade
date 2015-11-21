@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/css/style.css')
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+    script(type='text/javascript', src='/js/zoombud.js')
+    script(type='text/javascript', src='/js/typeahead.js')
+  body
+    header
+      nav
+        ul
+          li 
+            a(href="/") Home
+          li 
+            a(href="/stores/") Stores
+    block content

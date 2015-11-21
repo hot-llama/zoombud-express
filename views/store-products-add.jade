@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  h1= title
+  a(href="/stores/products/" + store_id) << Back to Store Products
+  div(id="output")
+  input(type='hidden' name='store_id' id='store_id' value='#{store_id}')
+  
+  div
+    label Product Name
+    input(
+        type='text'
+        name='product_name'
+        id='product_name'
+        value=''
+        maxlength='100'
+    )
+  div
+    label Description
+    textarea(
+        name='product_desc'
+        id='product_desc'
+        rows='10'
+        cols='40'
+        value=''
+    )
+  div
+    label Price
+    input(
+        type='text'
+        name='price'
+        id='price'
+        value=''
+        maxlength='8'
+    )
+  div
+    label Sale Price
+    input(
+        type='text'
+        name='sale_price'
+        id='sale_price'
+        value=''
+        maxlength='8'
+    )
+    
+  div
+    input(type='submit', id='productSubmit' value='Save')

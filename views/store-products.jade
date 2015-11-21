@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    h1= title
+    a(href="/stores/products/add/" + store_id) Add Product
+    p
+  
+    table
+        thead
+            tr
+                th Name
+                th Price
+        tbody
+        if (typeof(products) !== 'undefined' && products.length > 0)
+            each product in products
+                tr
+                    td
+                        a(href="/stores/products/edit/" + product.product_id) #{product.product_name}
+                    td= product.price
+        else
+            tr
+                td(colspan="2")
+                    p There are no products for this store yet..

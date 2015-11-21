@@ -1,0 +1,64 @@
+extends layout
+
+block content
+  h1= title
+  a(href="/stores/products/" + product.store_id) << Back to Store Products
+  p &nbsp;
+  div(id="output")
+  input(type='hidden' name='product_id' id='product_id' value='#{product.product_id}')
+  
+  div
+    label Product Name
+    input(
+        type='text'
+        name='product_name'
+        id='product_name'
+        value='#{product.product_name}'
+        maxlength='100'
+    )
+  div
+    label Description
+    textarea(
+        name='product_desc'
+        id='product_desc'
+        rows='10'
+        cols='40'
+    ) #{product.product_desc}
+  div
+    label Price
+    input(
+        type='text'
+        name='price'
+        id='price'
+        value='#{product.price}'
+        maxlength='8'
+    )
+  div
+    label Sale Price
+    input(
+        type='text'
+        name='sale_price'
+        id='sale_price'
+        value='#{product.sale_price}'
+        maxlength='8'
+    )
+  div(id="strain-suggestions")
+    label Associated Strain
+    input(
+        type='text'
+        name='strain'
+        id='strain'
+        class='typeahead'
+        value='#{strain_name}'
+        maxlength='100'
+    )
+  div
+    input(
+        type='hidden'
+        name='strain_id'
+        id='strain_id'
+        value='#{product.strain_id}'
+    )
+    
+  div
+    input(type='submit', id='productEditSubmit' value='Save')
