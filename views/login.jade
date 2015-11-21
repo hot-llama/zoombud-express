@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1= title
+  p!= errormsg
+  
+  form(name="loginForm" method="POST")
+      div
+        label Username/Email
+        input(
+            type='text'
+            name='username'
+            id='username'
+            value=''
+            maxlength='100'
+        )
+      div
+        label Password
+        input(
+            type='password'
+            name='password'
+            id='password'
+            value=''
+            maxlength='100'
+        )
+
+      div
+        input(type='submit', id='loginSubmit' value='Login')
