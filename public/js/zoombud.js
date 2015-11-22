@@ -1,4 +1,22 @@
 $(document).ready(function () {
+    $('#userSubmit').click(function () {
+        var payload = {
+            email: $('#email').val(),
+            password: $('#password').val(),
+            is_admin: $('#is_admin').val()
+        };
+        $.ajax({
+            url: "/admin/users/add",
+            type: "POST",
+            contentType: "application/json",
+            processData: false,
+            data: JSON.stringify(payload),
+            complete: function (data) {
+                $('#output').html(data.responseText);
+            }
+        });
+    });
+    
     $('#storeSubmit').click(function () {
         var payload = {
             name: $('#name').val(),

@@ -1,13 +1,18 @@
 var db = require('./db');
+var bcrypt = require('bcrypt-nodejs');
+// generate a salt
+//var salt = bcrypt.genSaltSync(10);
 
-// when you create a user, generate a salt
-// and hash the password ('foobar' is the pass here)
-/*hash('foobar', function(err, salt, hash){
-  if (err) throw err;
-  // store the salt & hash in the "db"
-  users.tj.salt = salt;
-  users.tj.hash = hash;
-});*/
+var hash = function hash(password, callback) {
+    callback(null, password);
+    // TODO: get hash functionanlity working
+    /*bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(password, salt, null, function(err, hash) {
+            if (err) return callback(err, null);
+            callback(null, hash);
+        });
+    });*/
+}
 
 // function that checks if user session is active. redirects to login page if not
 var restrict = function restrict(req, res, next) {
@@ -20,28 +25,34 @@ var restrict = function restrict(req, res, next) {
 }
 
 // function that authenticates a user login
-var authenticate = function authenticate(email, pass, fn) {
-    console.log(email);
-    console.log(pass);
+var authenticate = function authenticate(email, pass, next) {
     console.log('authenticating %s:%s', email, pass);
 
-    db.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, pass],
+    db.query('SELECT * FROM users WHERE email = ?', email,
         function (err, rows, result) {
             if (err || rows.length == 0) {
-                return fn(new Error('cannot find user'));
+                return next(new Error('cannot find user'));
             }
             user = rows[0];
-            console.log(user);
+            //console.log(user.password);
+            //console.log(pass);
             
-            // apply the same algorithm to the POSTed password, applying the hash against the pass / salt
-            // if there is a match we found the user
-            /*hash(pass, user.salt, function(err, hash) {
-                if (err) return fn(err);
-                if (hash == user.hash) return fn(null, user);
-                fn(new Error('invalid password'));
+            if (pass != user.password)
+                return next(new Error('cannot find user'));
+            
+            next(null, user);
+            
+            // TODO: get hash compare working
+            /*bcrypt.compare(pass, user.password, function(err, result) {
+                console.log(result);
+                if (err)
+                    console.log(err);
+                if (result) {
+                    
+                } else
+                    return next(new Error('cannot find user'));
             });*/
-            //res.render('stores', { title: 'Zoombud Stores', allstores: allstores });
         }
     );
 }
-module.exports = { authenticate: authenticate, restrict: restrict };
+module.exports = { hash: hash, authenticate: authenticate, restrict: restrict };

@@ -167,13 +167,16 @@ router.get('/users/add', function(req, res, next) {
 });
 /* POST to Add User */
 router.post('/users/add', function(req, res) {
-    query = db.query('INSERT INTO users SET ?', req.body, 
-        function (err, result) {
-            if (err) throw err;
-            console.log(query.sql);
-            res.send('User added to database. <a href="/users/edit/' + result.insertId + '">Click here to edit</a>');
-        }
-    );
+    session_funcs.hash(req.body.password, function(err, hash) {
+        req.body.password = hash;
+        query = db.query('INSERT INTO users SET ?', req.body, 
+            function (err, result) {
+                if (err) throw err;
+                console.log(query.sql);
+                res.send('User added to database. <a href="/users/edit/' + result.insertId + '">Click here to edit</a>');
+            }
+        );
+    });
 });
 router.get('/users/edit/:user_id', function(req, res, next) {
     var user_id = req.params.user_id;

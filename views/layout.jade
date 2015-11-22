@@ -8,10 +8,16 @@ html
     script(type='text/javascript', src='/js/typeahead.js')
   body
     header
+      if (typeof(session.user) !== 'undefined')
+        p Welcome 
+            a(href="/user") #{session.user.email}
+    
       nav
         ul
           li 
             a(href="/") Home
           li 
-            a(href="/menu/") Menu
+            a(href="/menu") Menu
+          li 
+            a(href="/login") Login
     block content

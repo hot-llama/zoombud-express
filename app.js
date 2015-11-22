@@ -61,11 +61,16 @@ app.use(cookieParser());
 
 // adding mysql store for storing session vars
 app.use(session({
-  resave: false, // don't save session if unmodified
-  saveUninitialized: false, // don't create session until something stored
-  secret: "z00mbudistheplaceformelivingalifeofecstacyz00mbudistheplaceforme",
-  store: sessionStore
+    resave: false, // don't save session if unmodified
+    saveUninitialized: false, // don't create session until something stored
+    secret: "z00mbudistheplaceformelivingalifeofecstacyz00mbudistheplaceforme",
+    store: sessionStore
 }));
+
+app.use(function(req, res, next){
+    res.locals.session = req.session;
+    next();
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
@@ -75,44 +80,44 @@ app.use('/users', users);
 
 // session-persisted message middleware
 app.use(function(req, res, next) {
-  var err = req.session.error;
-  var msg = req.session.success;
-  delete req.session.error;
-  delete req.session.success;
-  res.locals.message = '';
-  if (err) res.locals.message = '<p class="msg error">' + err + '</p>';
-  if (msg) res.locals.message = '<p class="msg success">' + msg + '</p>';
-  next();
+    var err = req.session.error;
+    var msg = req.session.success;
+    delete req.session.error;
+    delete req.session.success;
+    res.locals.message = '';
+    if (err) res.locals.message = '<p class="msg error">' + err + '</p>';
+    if (msg) res.locals.message = '<p class="msg success">' + msg + '</p>';
+    next();
 });
 
 app.get('/login', function(req, res) {
-  res.render('login', {title: 'Zoombud Login', errormsg: res.locals.message});
+    res.render('login', {title: 'Zoombud Login', errormsg: res.locals.message});
 });
 
 app.post('/login', function(req, res) {
-  session_funcs.authenticate(req.body.username, req.body.password, function(err, user) {
-    if (user) {
-      // regenerate session when signing in to prevent fixation
-      req.session.regenerate(function() {
-        // Store the user's primary key in the session store to be retrieved, or in this case the entire user object
-        req.session.user = user;
-        req.session.success = 'Authenticated as ' + user.name
-          + ' click to <a href="/logout">logout</a>. '
-          + ' You may now access <a href="/restricted">/restricted</a>.';
-        res.redirect('back');
-      });
-    } else {
-      req.session.error = 'Authentication failed, please check your username and password.';
-      res.redirect('/login');
-    }
-  });
+    session_funcs.authenticate(req.body.username, req.body.password, function(err, user) {
+        if (user) {
+            // regenerate session when signing in to prevent fixation
+            req.session.regenerate(function() {
+                // Store the user's primary key in the session store to be retrieved, or in this case the entire user object
+                req.session.user = user;
+                req.session.success = 'Authenticated as ' + user.email
+                  + ' click to <a href="/logout">logout</a>. '
+                  + ' You may now access <a href="/admin">/admin</a>.';
+                res.redirect('back');
+            });
+        } else {
+            req.session.error = 'Authentication failed, please check your username and password.';
+            res.redirect('/login');
+        }
+    });
 });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
